@@ -1,0 +1,59 @@
+<div class="container" style="border: 1px solid rgb(194, 194, 243); margin-top: 30px;">
+  <div class="container" style="margin-top: 30px; margin-bottom: 10px;">
+    <div class="mx-auto" style="width: 600px; " >
+  <form [formGroup]="formModel" autocomplete="off" (submit)="onSubmit()">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" formControlName="urlInput" placeholder="Type Website Name..." onfocus="this.placeholder=''" onblur="this.placeholder='Type Website Name...'">
+      <div class="input-group-append">
+        <button class="btn" type="submit" [disabled]="!formModel.valid" style="background-color: rgb(241, 94, 41); color:white;">Scrap</button>
+      </div>
+      
+    </div>
+    <div *ngIf="f.urlInput.touched && f.urlInput.invalid" class="alert alert-danger">
+      <div *ngIf="f.urlInput.errors.required">URL is required.</div>
+      <div *ngIf="f.urlInput.errors.pattern">Please enter valid url.</div>
+      </div>
+    <p style="color:rgb(241, 94, 41); font-weight: bold;"><i>Analysing Website and Generating Reports...</i></p>
+    <!-- <input class="form-control" style="float:right;" >
+    <button type="submit" class="btn btn-primary" style="float:left;">Scrap</button> -->
+  </form>
+  </div>
+  </div>
+  <div class="mx-auto" *ngIf="showDiv" id="content" #content>
+  <p style="font-weight: bold;"><u>Scraping Result</u></p>
+  <div class="row">
+    <div class="col-sm-3"><label style="font-weight: bold;">Site Name:</label></div>
+    <div class="col-sm-9"><label id="lblSite">{{lblSite}}</label></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3"><label style="font-weight: bold;">Title:</label></div>
+    <div class="col-sm-9"><label id="lblTitle">{{lblTitle}}</label></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3"><label style="font-weight: bold;">Meta Description:</label></div>
+    <div class="col-sm-9"><label id="lblDescription">{{lblDescription}}</label></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3"><label style="font-weight: bold;">Meta Keywords:</label></div>
+    <div class="col-sm-9"><label id="lblKeywords">{{lblKeywords}}</label></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3"><label style="font-weight: bold;">Screen Capture:</label></div>
+    <div class="col-sm-9">
+      <img src="{{'http://localhost:56097/'+imgsrc}}"  height="500px" width="800px"/>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="col-sm-3"><label style="font-weight: bold;">HyperLinks and Social Media Links:</label></div>
+    <div class="col-sm-9">
+      <label *ngFor="let link of allLinks;">{{link}}</label>
+    </div>
+  </div>
+  <div class="row" style="text-align: center;">
+   
+    <input type="button" style="position: absolute;top:50%;" value="Download Report" class="btn" (click)="SavePDF()" style="background-color: rgb(241, 94, 41); color:white;">  
+  </div>
+  
+  </div>
+</div>
